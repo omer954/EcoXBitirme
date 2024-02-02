@@ -1,0 +1,62 @@
+﻿@model IEnumerable<EcoXShopBitirme.Models.Category>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            
+        </div>
+        <div class="col-md-4">
+            <h2 class="text-primary">Kategori Listesi</h2>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <p>
+                <a asp-action="Create" class="btn btn-primary text-white">Kategori Ekle</a>
+            </p>
+        </div>
+    </div>
+  
+    
+    <table class="table table-striped table-bordered" id="myTable">
+        <thead>
+            <tr>
+                <th>
+                    Kategori Adı
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success text-white"><i class="bi bi-pencil-fill"></i> Düzenle</a> |
+
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger text-white"><i class="bi bi-trash-fill"></i> Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        let table = new DataTable('#myTable');
+    </script>
+
+}
+

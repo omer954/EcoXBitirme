@@ -1,0 +1,135 @@
+﻿@model IEnumerable<EcoXShopBitirme.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <h2 class="text-primary">Ürün Listesi</h2>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <p>
+                <a asp-action="Create" class="btn btn-primary text-white">Ürün Ekle</a>
+            </p>
+        </div>
+    </div>
+   
+    <table class="table table-striped table-bordered" id="myTable">
+        <thead>
+            <tr>
+                <th>
+                    Resim
+                </th>
+                <th>
+                    Başlık
+                </th>
+                <th>
+                    Açıklama
+                </th>
+                <th>
+                    Fiyat
+                </th>
+                <th>
+                    Marka
+                </th>
+                <th>
+                    Sürdürülebilirlik
+                </th>
+                <th>
+                    Anasayfa
+                </th>
+                <th>
+                    Stok
+                </th>
+                <th>
+                    Kategori
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (item.Image == null)
+                        {
+                            <img src="~/template/images/product/boşgörsel.jpg" width="100" height="80" />
+                        }
+                        else
+                        {
+                            <img src="@item.Image" width="100" height="80" />
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @string.Format("{0:C2}", item.Price)
+                    </td>
+
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Brand)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sustainability)
+                    </td>
+
+
+
+                    <td>
+                        @if (item.IsHome)
+                        {
+                            <label class="btn btn-success btn-sm"><i class="bi bi-check-square-fill"></i> Evet</label>
+                        }
+                        else
+                        {
+                            <label class="btn btn-danger btn-sm"><i class="bi bi-x-square-fill"></i> Hayır</label>
+                        }
+                    </td>
+                    <td>
+                        @if (item.IsStock)
+                        {
+                            <label class="btn btn-success btn-sm"><i class="bi bi-check-square-fill"></i> Evet</label>
+                        }
+                        else
+                        {
+                            <label class="btn btn-danger btn-sm"><i class="bi bi-x-square-fill"></i> Hayır</label>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.Name)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm text-white"><i class="bi bi-pencil"></i> Düzenle</a> |
+
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm text-white"><i class="bi bi-trash"></i> Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        let table = new DataTable('#myTable');
+    </script>
+
+}

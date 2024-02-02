@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewData["Title"] = "Home Page";
+	ViewData["ActivePage"] = "Anasayfa";
+    
+}
+<br>
+<div class="container">
+	<div class="row">
+		@await Component.InvokeAsync("CategoryList")
+		
+
+		@foreach (var item in Model)
+		{
+			<div class="col-md-3">
+
+				@*<div class="single-product">
+					<div class="product-img">
+						<a asp-action="Details" asp-controller="Customer" asp-route-id="@item.Id">
+							@if (item.Image == null)
+							{
+								<img class="default-img" src="~/template/images/product/boşgörsel.jpg" alt="#">
+								<img class="hover-img" src="~/template/images/product/boşgörsel.jpg" alt="#">
+							}
+							else
+							{
+								<img src="@item.Image" class="default-img" alt="..." style="height:200px">
+								<img src="@item.Image" class="hover-img" alt="..." style="height:200px">
+								
+							}
+							
+							
+						</a>
+						<div class="button-head">
+							<div class="product-action">
+								<a asp-action="Details" asp-controller="Customer" asp-route-id="@item.Id" title="Detay"><i class=" ti-eye"></i>Detay<span>Detay Sayfası</span></a>
+								
+							</div>
+							<div class="product-action-2">
+								@item.Title -
+								@item.Brand
+							</div>
+						</div>
+					</div>
+					<div class="product-content">
+						<h3><a asp-action="Details" asp-controller="Customer" asp-route-id="@item.Id">@item.Description</a></h3>
+						<div class="product-price">
+							<label style="font-size:20px;color:crimson"><b>@item.Price.ToString("0.00") ₺</b></label>
+						</div>
+					</div>
+				</div>*@
+				<div class="card">
+					<div class="card-header">
+						@item.Title -
+						@item.Brand
+					</div>
+					@if (item.Image == null)
+					{
+						<img src="~/template/images/product/boşgörsel.jpg" class="card-img-top" alt="..." style="height:200px">
+					}
+					else
+					{
+						<img src="@item.Image" class="card-img-top" alt="..." style="height:200px">
+					}
+
+					<div class="card-body">
+						<p class="card-text">@item.Description</p>
+					</div>
+					<div class="card-footer">
+						<label style="font-size:20px;color:crimson"><b>@item.Price.ToString("0.00") ₺</b></label>
+						<a asp-action="Details" asp-controller="Customer" asp-route-id="@item.Id" class="btn btn-outline-info text-white" style="float:right">Detay</a>
+					</div>
+					
+				</div>
+				<br>
+			</div>
+		}
+	</div>
+</div>
+
+

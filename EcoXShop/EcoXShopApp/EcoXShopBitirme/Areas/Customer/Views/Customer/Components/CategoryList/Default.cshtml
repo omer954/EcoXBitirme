@@ -1,0 +1,98 @@
+﻿@model IEnumerable<EcoXShopBitirme.Models.Category>
+
+<div class="col-md-3">
+    <div class="card">
+        <div class="list-group">
+            <a asp-action="Index" asp-controller="Customer" class="list-group-item list-group-item-action @(ViewBag.KategoriId==null?"active":"")" aria-current="true">
+                TÜM ÜRÜNLER
+            </a>
+
+            @foreach (var item in Model)
+            {
+                <a asp-action="CategoryDetails" class="list-group-item list-group-item-action  @(ViewBag.KategoriId?.ToString()==item.Id.ToString()?"active":"")" asp-route-id="@item.Id">@item.Name</a>
+            }
+        </div>
+
+        
+        <div class="card">
+                <form action="/Customer/Customer/Search" method="post" class="">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="sustainabilityDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Sürdürülebilirlik Seçenekleri
+                        </button>
+                        <div class="dropdown-menu bg-info text-white" aria-labelledby="sustainabilityDropdown">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="recycledMaterials" id="recycledCheckbox" name="sustainabilityFilters">
+                                <label class="form-check-label" for="recycledCheckbox">Geri dönüştürülmüş malzemeler içerir</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="bluesignCriteria" id="bluesignCheckbox" name="sustainabilityFilters">
+                                <label class="form-check-label" for="bluesignCheckbox">bluesign kriterlerini karşılayan malzemeler içerir</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="climateNeutralCertified" id="climateNeutralCheckbox" name="sustainabilityFilters">
+                                <label class="form-check-label" for="climateNeutralCheckbox">İklim Nötr Sertifikalı bir markadan</label>
+                            </div>
+                        </div>
+                    </div>
+                    <label id="selectedOptionsLabel"></label>
+                    
+                    <div class="row">
+                        <div class="col-md-2">
+
+                        </div>
+                    <div class="col-md-2">
+                        <div class="search-bar">
+
+                            <input name="q" placeholder="Ürünleri Buradan Ara..." type="text">
+
+                        </div>
+                    </div>
+                        
+
+                    </div>
+                    
+
+                    <button class="btn btn-primary mt-3 mx-auto d-block" type="submit"><i class="ti-search"></i> Filtrele</button>
+
+                </form>
+        </div>
+    </div>
+</div>
+<script>
+    // Checkbox'ları dinle
+    var checkboxes = document.querySelectorAll('input[name="sustainabilityFilters"]');
+    checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
+            updateSelectedOptions();
+        });
+    });
+
+    // Seçili seçenekleri güncelle
+    function updateSelectedOptions() {
+        var selectedOptions = [];
+
+        checkboxes.forEach(function (checkbox) {
+            if (checkbox.checked) {
+                var label = document.querySelector('label[for="' + checkbox.id + '"]').textContent;
+                selectedOptions.push(label);
+            }
+        });
+
+        displaySelectedOptions(selectedOptions);
+    }
+
+    // Seçili seçenekleri ekrana yazdır
+    function displaySelectedOptions(selectedOptions) {
+        var resultLabel = document.getElementById('selectedOptionsLabel');
+        resultLabel.textContent = '';
+
+        if (selectedOptions.length > 0) {
+            var resultText = selectedOptions.join(', ');
+            resultLabel.textContent = resultText;
+        }
+    }
+</script>
+
+
+
